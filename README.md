@@ -13,33 +13,45 @@ The codebase is organized into decoupled, tested modules:
 
 ```
 ChatBot/
-├── api.py                        # FastAPI application with /health and /chat endpoints and lifespan management
-├── config.py                     # Centralized typed AppConfig with secret masking and validation
-├── clean_data.py                 # Pure data cleaning, normalization, conflict resolution & stable IDs
-├── retrieval.py                  # Input validation, ChromaDB querying, distance conversion & diagnostics
-├── generation.py                 # LLM generation with JSON payloads, output checks, and bounded retries
-├── ingest.py                     # Idempotent index lifecycle, fingerprint manifest, CLI & legacy interfaces
-├── calibrate_threshold.py        # Empirical threshold calibration with frozen dev/test evaluation splits
-├── experiment_qa_representation.py # Side-by-side benchmark of Question-Only vs Q+A representation
-├── frontend/                     # Separate React, TypeScript, Vite, Tailwind CSS & shadcn/ui chat frontend
-│   ├── src/                      # Chat interface, components, API client, and state management
-│   ├── package.json              # Frontend dependencies and run scripts
-│   ├── vite.config.ts            # Vite bundler configuration with @ path alias and proxy settings
-│   ├── tailwind.config.js        # Tailwind CSS configuration with shadcn design tokens
-│   └── .env.example              # Frontend environment template with VITE_API_BASE_URL
-├── tests/                        # 69-test automated test suite (pytest)
-│   ├── conftest.py               # Shared fixtures with fast deterministic mock embeddings
-│   ├── test_api.py               # Tests for FastAPI health probe, chat, CORS, validation, and error boundaries
-│   ├── test_calibration_and_evaluation.py # Tests for split determinism, ratios, decoupled acceptance vs retrieval, Hit@k/MRR
-│   ├── test_clean_data.py        # Tests for missing values, whitespace, conflicts, audit accounting
-│   ├── test_indexing.py          # Tests for idempotence, updates, additions, deletions, reorders
-│   ├── test_retrieval.py         # Tests for validation, k clamping, empty collections, conversions
-│   ├── test_generation.py        # Tests for structured context, sanitization, output checks, retries
+├── app/                           # Core application package
+│   ├── __init__.py                # Package exports
+│   ├── api.py                     # FastAPI application with /health and /chat endpoints
+│   ├── config.py                  # Centralized typed AppConfig with secret masking and validation
+│   ├── retrieval.py               # Input validation, ChromaDB querying, distance conversion & diagnostics
+│   ├── generation.py              # LLM generation with JSON payloads, output checks, and bounded retries
+│   ├── memory.py                  # Bounded in-memory conversation store with LRU eviction and TTL
+│   └── ingest.py                  # Idempotent index lifecycle, fingerprint manifest & CLI orchestration
+├── data/                          # Dataset files and evaluation ground-truth benchmarks
+│   ├── cleaned_faqs.csv           # Cleaned and deduplicated FAQ records
+│   ├── eval_dev_tuning_set.json   # Development/tuning query set
+│   ├── eval_held_out_test_set.json# Held-out evaluation query set
+│   ├── ragas_eval_set.json        # Master labeled evaluation dataset
+│   └── threshold_calibration_report.csv # Historical sweep metrics across thresholds
+├── scripts/                       # Offline calibration, cleaning, and evaluation scripts
+│   ├── calibrate_threshold.py     # Empirical threshold calibration with frozen dev/test splits
+│   ├── clean_data.py              # Pure data cleaning, normalization, conflict resolution & stable IDs
+│   ├── evaluate1.py               # RAGAS offline evaluation runner
+│   └── experiment_qa_representation.py # Side-by-side benchmark of Question-Only vs Q+A representation
+├── frontend/                      # Customer-support chat UI (React, Vite, TypeScript, Tailwind, shadcn/ui)
+│   ├── src/                       # Chat interface, components, API client, and state management
+│   ├── package.json               # Frontend dependencies and scripts
+│   └── vite.config.ts             # Vite bundler configuration
+├── tests/                         # 83-test automated test suite (pytest)
+│   ├── conftest.py                # Shared fixtures with fast deterministic mock embeddings
+│   ├── test_api.py                # Tests for FastAPI health probe, chat, CORS, memory, validation
+│   ├── test_memory.py             # Tests for bounded LRU store, FIFO turn eviction, and TTL expiration
+│   ├── test_calibration_and_evaluation.py # Tests for split determinism, ratios, Hit@k/MRR
+│   ├── test_clean_data.py         # Tests for missing values, whitespace, conflicts, audit accounting
+│   ├── test_indexing.py           # Tests for idempotence, updates, additions, deletions, reorders
+│   ├── test_retrieval.py          # Tests for validation, k clamping, empty collections, conversions
+│   ├── test_generation.py         # Tests for structured context, sanitization, output checks, retries
 │   └── test_regression_and_security.py # Tests for secret masking, public interfaces, lazy imports
-├── pytest.ini                    # Pytest configuration with pythonpath and warning filters
-├── requirement.txt               # Pinned dependencies (including fastapi and uvicorn)
-├── .env.example                  # Environment variable template with secret placeholders
-└── .gitignore                    # Excludes secrets, local Chroma storage, node_modules, and test logs
+├── .github/workflows/ci.yml       # GitHub Actions CI (Python test suite + Frontend build)
+├── pytest.ini                     # Pytest configuration with pythonpath (., app, scripts)
+├── requirements.txt               # Pinned Python dependencies
+├── .env.example                   # Environment variable template
+├── .gitignore                     # Git ignore rules for secrets, DBs, logs, and build artifacts
+└── LICENSE                        # MIT License
 ```
 
 ---
