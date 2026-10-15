@@ -1,0 +1,126 @@
+[
+  {
+    "id": 35,
+    "query_type": "multi_hop",
+    "answerable": true,
+    "user_input": "I'm sending a gift to a friend in another country and want wrapping and a message. How does that work?",
+    "reference": "At checkout you can enter the recipient's shipping address, add gift wrapping (for an additional fee), and add a personalized gift message. International delivery is only available to select countries, and availability and shipping costs are calculated at checkout.",
+    "source_questions": [
+      "Can I order a product as a gift?",
+      "Do you offer gift wrapping services?",
+      "Can I add a gift message to my order?",
+      "Can I order a product for delivery to a different country?"
+    ]
+  },
+  {
+    "id": 19,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "If I paid with a gift card and return the item, how do I get refunded?",
+    "reference": "Returns are allowed, and the refund is issued as store credit or a new gift card.",
+    "source_questions": [
+      "Can I return a product if it was purchased with a gift card?"
+    ]
+  },
+  {
+    "id": 3,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "Where can I see the tracking info for my shipment?",
+    "reference": "Log into your account and go to the 'Order History' section, where the tracking information is shown.",
+    "source_questions": [
+      "How can I track my order?"
+    ]
+  },
+  {
+    "id": 18,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "I threw away the box. Can I still return the item?",
+    "reference": "Original packaging is preferred, but you can still start a return without it. Contact customer support for guidance.",
+    "source_questions": [
+      "Can I return a product if I no longer have the original packaging?"
+    ]
+  },
+  {
+    "id": 31,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "Is there a chat option on the site?",
+    "reference": "Yes, live chat is available during business hours. Use the chat icon in the bottom right corner of the website.",
+    "source_questions": [
+      "Do you offer live chat support?"
+    ]
+  },
+  {
+    "id": 22,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "Can you hold an out-of-stock item for me?",
+    "reference": "No, reservations are not offered for out-of-stock products. You can sign up for notifications to be alerted when it is available again.",
+    "source_questions": [
+      "Can I request a product that is currently out of stock to be reserved for me?"
+    ]
+  },
+  {
+    "id": 4,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "How many days do I have to send something back for a full refund?",
+    "reference": "Products can be returned within 30 days of purchase for a full refund, provided they are in original condition and packaging.",
+    "source_questions": [
+      "What is your return policy?"
+    ]
+  },
+  {
+    "id": 24,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "Can I buy something that is backordered?",
+    "reference": "Yes. Backordered products are temporarily out of stock but can still be ordered, and the order is fulfilled once the product is restocked.",
+    "source_questions": [
+      "Can I order a product if it is listed as 'backordered'?"
+    ]
+  },
+  {
+    "id": 9,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "I typed the wrong delivery address. Can it be fixed?",
+    "reference": "Contact customer support as soon as possible. They will try to update the address if the order has not been shipped yet.",
+    "source_questions": [
+      "Can I change my shipping address after placing an order?"
+    ]
+  },
+  {
+    "id": 15,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "Can I stack two promo codes on the same order?",
+    "reference": "Usually only one promo code can be applied per order. It is entered in the designated field at checkout.",
+    "source_questions": [
+      "Can I use multiple promo codes on a single order?"
+    ]
+  },
+  {
+    "id": 16,
+    "query_type": "single_hop",
+    "answerable": true,
+    "user_input": "I received a different product than what I ordered.",
+    "reference": "Contact customer support immediately. They will arrange for the correct item to be shipped and help with returning the wrong one.",
+    "source_questions": [
+      "What should I do if I receive the wrong item?"
+    ]
+  },
+  {
+    "id": 41,
+    "query_type": "unanswerable",
+    "answerable": false,
+    "user_input": "What time does customer support close on Fridays?",
+    "reference": "The knowledge base only contains a placeholder for working hours. The assistant should not invent hours and should say it does not have this information.",
+    "source_questions": [
+      "What are your business hours?"
+    ],
+    "notes": "Source answer contains the literal text [working hours]."
+  }
+]

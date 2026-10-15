@@ -1,0 +1,62 @@
+# Environment & secrets
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database & persistence
+chroma_db/
+*.sqlite3
+*.db
+
+# Evaluation outputs & logs
+*.log
+ragas_results.csv
+rag_outputs.json
+generation_results.csv
+retrieval_results.csv
+threshold_sweep.csv
+ragas_evaluation_results.csv
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+# Node / Frontend
+node_modules/
+frontend/dist/
+*.local
