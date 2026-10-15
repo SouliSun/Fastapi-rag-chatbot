@@ -1,11 +1,11 @@
 # Customer Support FAQ RAG System
 
-A full-stack, grounded Retrieval-Augmented Generation (RAG) assistant for customer support. The system combines an algorithmic RAG core, an asynchronous **FastAPI** backend service, a responsive **React** chat interface, and an empirical **evaluation and threshold calibration** suite.
+A full-stack, grounded Retrieval-Augmented Generation (RAG) assistant for customer support. The system combines an algorithmic RAG core, a **FastAPI** backend service, a responsive **React** chat interface, and an empirical **evaluation and threshold calibration** suite.
 
 Built with Hugging Face's `MakTek/Customer_support_faqs_dataset`, **ChromaDB** persistent vector storage, **BAAI/bge-small-en-v1.5** embeddings, and **Groq** LLMs (`openai/gpt-oss-20b`).
 
 > [!NOTE]
-> **Current Status & Scope**: This repository contains a fully functional local service including the backend API, web frontend, conversation memory, and an 83-test offline test suite. While hardened against prompt injection, hallucinations, and memory leaks, running it in production requires standard enterprise infrastructure (authentication gateway, rate limiting, and TLS termination) detailed in the [Production Roadmap](#9-production-roadmap--deployment-prerequisites).
+> **Current Status & Scope**: This repository contains a fully functional local service including the backend API, web frontend, conversation memory, and an 83-test offline test suite. While incorporating prompt injection defenses, heuristic validation against structural hallucinations (unsupported phone numbers, emails, links, and placeholders), and bounded in-memory session limits, running it in production requires standard enterprise infrastructure (authentication gateway, rate limiting, and TLS termination) detailed in the [Production Roadmap](#8-production-roadmap--deployment-prerequisites).
 
 ---
 
@@ -45,7 +45,7 @@ Built with Hugging Face's `MakTek/Customer_support_faqs_dataset`, **ChromaDB** p
 
 1. **Clone the repository and create a virtual environment**:
    ```powershell
-   git clone https://github.com/<your-username>/Fastapi-rag-chatbot.git
+   git clone https://github.com/SouliSun/Fastapi-rag-chatbot.git
    cd Fastapi-rag-chatbot
    python -m venv .venv
    .\.venv\Scripts\Activate.ps1   # On macOS/Linux: source .venv/bin/activate
@@ -70,7 +70,11 @@ Built with Hugging Face's `MakTek/Customer_support_faqs_dataset`, **ChromaDB** p
    ```
 
 4. **Initialize data and index (Optional)**:
-   The database auto-indexes on your first query or application startup. You can also explicitly trigger indexing or health checks:
+   The database auto-indexes on application startup or during your first query. To explicitly pre-build the vector index from the cleaned dataset, run:
+   ```powershell
+   python ingest.py --reindex
+   ```
+   To verify that ChromaDB is initialized, responsive, and reports healthy status without starting the web server:
    ```powershell
    python ingest.py --health
    ```
